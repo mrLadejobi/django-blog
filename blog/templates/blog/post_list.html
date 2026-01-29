@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% for post in posts %}
+        <div class="mb-5 pb-5 border-bottom">
+            <p class="text-muted mb-2"><small>{{ post.created_at|date:"F j, Y" }}</small></p>
+            <h2 class="mb-3">
+                <a href="{% url 'post_detail' pk=post.pk %}" class="text-decoration-none text-dark" style="transition: 0.3s;">
+                    {{ post.title }}
+                </a>
+            </h2>
+            <p class="lead text-secondary">{{ post.body|truncatewords:40 }}</p>
+            <a href="{% url 'post_detail' pk=post.pk %}" class="text-decoration-none fw-bold text-dark" style="font-size: 0.9rem; border-bottom: 2px solid var(--accent-color);">Continue Reading</a>
+        </div>
+    {% empty %}
+        <div class="text-center">
+            <p>The journal is empty. Write your first thought.</p>
+        </div>
+    {% endfor %}
+{% endblock %}

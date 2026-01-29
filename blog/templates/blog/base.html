@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}The Daily Journal{% endblock %}</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts: Playfair for headers, Lora for body -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e67e22;
+            --bg-color: #fcfaf8;
+        }
+        body { 
+            font-family: 'Lora', serif; 
+            background-color: var(--bg-color); 
+            color: #333;
+        }
+        h1, h2, h3, .navbar-brand { 
+            font-family: 'Playfair Display', serif; 
+            font-weight: 900;
+        }
+        .navbar {
+            background-color: white;
+            border-bottom: 1px solid #eaeaea;
+            padding: 1.5rem 0;
+        }
+        .navbar-brand { font-size: 1.8rem; color: var(--primary-color) !important; }
+        .nav-link { font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; color: #666 !important; }
+        .nav-link:hover { color: var(--accent-color) !important; }
+        .btn-classy {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 0;
+            padding: 10px 25px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .btn-classy:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        footer { margin-top: 50px; padding: 40px 0; border-top: 1px solid #eaeaea; text-align: center; color: #999; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg mb-5">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'post_list' %}">THE JOURNAL</a>
+            <div class="ms-auto">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'post_new' %}" class="btn btn-classy">New Entry</a>
+                {% else %}
+                    <a href="/admin" class="nav-link d-inline">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 The Daily Journal. Built with Django.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h1 class="mb-4">Compose</h1>
+    <form method="POST" class="card p-4 shadow-sm border-0">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="mb-3">
+                <label class="form-label fw-bold">{{ field.label }}</label>
+                <!-- This is a little trick to add Bootstrap classes to Django forms -->
+                <div class="form-control-wrapper">
+                    {{ field }}
+                </div>
+                {% if field.help_text %}
+                    <div class="form-text">{{ field.help_text }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <style>
+            input, textarea { 
+                width: 100%; 
+                padding: 10px; 
+                border: 1px solid #ddd; 
+                border-radius: 4px;
+            }
+            textarea { height: 300px; }
+        </style>
+
+        <button type="submit" class="btn btn-classy w-100 mt-3">Publish to Journal</button>
+    </form>
+{% endblock %}
